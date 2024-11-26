@@ -30,10 +30,13 @@
 
 ## 使用
 
+
+
 先開啟雷電模擬器，進入 PTCG pocket 首頁
 再開啟 CMD 執行:
 
 ```sh
+# 假設此專案放在 py 資料夾; 使用者叫做 YOUR_USER
 cd "C:\Users\YOUR_USER\Desktop\py"
 python main.py
 ```
