@@ -34,11 +34,13 @@ def check_text_in_image(image_path):
     try:
         target_text = "no cost"
         bonus_pick = "bonus pick"
-        rare_pick = "rare pick"        
+        rare_pick = "rare pic"
+        date_has_changed = "date has changed"
         # 開啟圖片
         img = Image.open(image_path)
         # 使用 OCR 辨識文字
         text = pytesseract.image_to_string(img)
+        print(f"ocr: {text}")
         # print(f"圖片的文字有:\n{text}")
         # 定義來源和目標目錄
         input_path = Config.SCREENSHOTS_OUTPUT_PATH
@@ -50,6 +52,10 @@ def check_text_in_image(image_path):
             return 2
         if bonus_pick in text.lower():
             return 1
+        if target_text in text.lower():
+            return 1
+        if date_has_changed in text.lower():
+            return 0
         return 3
     except Exception as e:
         print(f"Error processing image: {e}")
@@ -99,6 +105,11 @@ def lt_load_menu():
     """首頁刷新"""
     print(">>首頁刷新")
     keyboard.send("ctrl+k")
+    
+def lt_date_change():
+    """日期更新"""
+    print(">>日期更新")
+    keyboard.send("ctrl+l")
 
 def auto_task(is_skip_enter_flow):
     global execution_count
@@ -145,6 +156,8 @@ def auto_task(is_skip_enter_flow):
             auto_task(True)
         if mode == 3:
             print(f"🕛冷卻中")
+        if mode == 0:
+            lt_date_change()
     else:
         print("💥例外情況 沒找到圖片")
 
